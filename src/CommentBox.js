@@ -9,6 +9,7 @@ class CommentBox extends Component {
         super(props);
         this.state = { data: [] };
     }
+
     loadCommentsFromServer = () => {
         axios.get(this.props.url)
             .then(res => {
@@ -35,28 +36,30 @@ class CommentBox extends Component {
                 console.error(err);
             });
     }
-    handleCommentUpdate => (id, comment) => {
-    axios.put(`${this.props.url}/${id}`, comment)
-    .catch(err => {
-    console.log(err);
-    })
-    }
-    componentDidMount() {
-    this.loadCommentsFromServer();
-    setInterval(this.loadCommentsFromServer, this.props.pollInterval);
-    }
-    render() {
-    return (
-    <div style={ style.commentBox }>
-    <h2 style={ style.title }>Comments:</h2>
-    <CommentList
-    onCommentDelete={ this.handleCommentDelete }
-    onCommentUpdate={ this.handleCommentUpdate }
-    data={ this.state.data }/>
-    <CommentForm onCommentSubmit={ this.handleCommentSubmit }/>
-    </div>
-    )
-    }
+    handleCommentUpdate = (id, comment) => {
+        axios.put(`${this.props.url}/${id}`, comment)
+            .catch(err => {
+                console.log(err)
+            })
     }
 
-    export default CommentBox
+    componentDidMount() {
+        this.loadCommentsFromServer()
+        setInterval(this.loadCommentsFromServer, this.props.pollInterval)
+    }
+
+    render() {
+        return (
+            <div style={style.commentBox}>
+                <h2 style={style.title}>Comments:</h2>
+                <CommentList
+                    onCommentDelete={this.handleCommentDelete}
+                    onCommentUpdate={this.handleCommentUpdate}
+                    data={this.state.data} />
+                <CommentForm onCommentSubmit={this.handleCommentSubmit} />
+            </div>
+        )
+    }
+}
+
+export default CommentBox

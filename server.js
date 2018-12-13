@@ -37,11 +37,11 @@ app.use(function(req, res, next) {
 
 //now  we can set the route path & initialize the API
 router.get('/', function(req, res) {
-    res.json({ message: 'API Initialized!'})
-})
+    res.json({ message: 'API Initialized!'});
+});
 
 //adding the /comments route to our /api router
-router.route('/comments/:comment_id')
+router.route('/comments')
 //retrieve all comments from the database
     .get(function(req, res) {
         //looks at our Comment Schema
@@ -54,19 +54,20 @@ router.route('/comments/:comment_id')
     })
     //post new comment to the database
     .post(function(req, res) {
-        var comment = new Comment()
+        var comment = new Comment();
         //body parser lets us use the req.body
-        comment.author = req.body.author
-        comment.text = req.body.text
+        comment.author = req.body.author;
+        comment.text = req.body.text;
 
         comment.save(function(err) {
             if (err)
-                res.send(err)
-            res.json({ message: 'Comment successfully add!' })
-        })
-    })
+                res.send(err);
+            res.json({ message: 'Comment successfully added!' });
+        });
+    });
 
-
+router.route('/comments/:comment_id')
+//The put method gives us the chance to update our comment based on the ID passed to the route
     .put(function(req, res) {
         Comment.findById(req.params.comment_id, function(err, comment) {
             if (err)

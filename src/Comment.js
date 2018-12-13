@@ -34,7 +34,7 @@ class Comment extends Component {
     deleteComment = (e) => {
         e.preventDefault()
         let id = this.props.uniqueID
-        this.props.onCommentDelete(id
+        this.props.onCommentDelete(id)
         console.log('oops deleted')
     }
     handleTextChange = (e) => {
