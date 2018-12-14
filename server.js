@@ -58,7 +58,7 @@ router.route('/comments')
         //body parser lets us use the req.body
         comment.author = req.body.author;
         comment.text = req.body.text;
-
+        comment.account = req.body.account
         comment.save(function(err) {
             if (err)
                 res.send(err);
@@ -76,6 +76,7 @@ router.route('/comments/:comment_id')
             // we will not alter the field.
             (req.body.author) ? comment.author = req.body.author : null;
             (req.body.text) ? comment.text = req.body.text : null;
+            (req.body.account) ? comment.account = req.body.account : null
             //save comment
             comment.save(function(err) {
                 if (err)

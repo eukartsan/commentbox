@@ -8,6 +8,7 @@ class CommentList extends Component {
             return (
                 <Comment
                     author={ comment.author }
+                    account ={ comment.account }
                     uniqueID={ comment['_id'] }
                     onCommentDelete={ this.props.onCommentDelete }
                     onCommentUpdate={ this.props.onCommentUpdate }

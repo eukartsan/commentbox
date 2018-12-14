@@ -4,7 +4,7 @@ import style from './style';
 class CommentForm extends Component {
     constructor(props) {
         super(props);
-        this.state = { author: '', text: '' };
+        this.state = { author: '', text: '', account: '' };
     }
     handleAuthorChange = (e) => {
         this.setState({ author: e.target.value });
@@ -12,15 +12,19 @@ class CommentForm extends Component {
     handleTextChange = (e) => {
         this.setState({ text: e.target.value });
     }
+    handleAccountChange = (e) => {
+        this.setState({account: e.target.value})
+    }
     handleSubmit = (e) => {
-        e.preventDefault();
-        let author = this.state.author.trim();
-        let text = this.state.text.trim();
-        if (!text || !author) {
+        e.preventDefault()
+        let author = this.state.author.trim()
+        let text = this.state.text.trim()
+        let account = this.state.account.trim()
+        if (!text || !author || !account) {
             return;
         }
-        this.props.onCommentSubmit({ author: author, text: text });
-        this.setState({ author: '', text: '' });
+        this.props.onCommentSubmit({ author: author, text: text, account: account });
+        this.setState({ author: '', text: '', account: '' });
     }
     render() {
         return (
@@ -38,9 +42,16 @@ class CommentForm extends Component {
                     value={ this.state.text }
                     onChange={ this.handleTextChange } />
                 <input
+                    type='test'
+                    placeholder='Update Account'
+                    style={ style.commentFormAuthor }
+                    value={this.state.account}
+                    onChange={this.handleAccountChange}
+                />
+                <input
                     type='submit'
                     style={ style.commentFormPost }
-                    value='Post'/>
+                    value='Add'/>
             </form>
         )
     }
